@@ -23,6 +23,38 @@ namespace TrainApplicationLibrary.Classes
             return id;
         }
 
+        public List<ITrain> ViewTrains(string source,string destination) {
+            var trains = from t in Trains.OfType<Train>()
+                         where t.Source == source && t.Destination == destination
+                         select t;
+            return trains.OfType<ITrain>().ToList();
+        }
+
+        public int SearchTrains(string source, string destination, int noOfPassenger)
+        {
+            var trains = from t in Trains.OfType<Train>()
+                         where t.Source == source && t.Destination == destination
+                         select t;
+            foreach (Train t in trains)
+            {
+                var train = (from ticket in Tickets.OfType<Ticket>()
+                                    where ticket.TrainId == t.Id
+                                    group ticket by ticket.TrainId into g 
+                                    select new {TrainId = g.Key , RemainingSeates = 200 - g.Sum(ta => ta.NoOfPassenger) }).FirstOrDefault();
+
+                if (train.RemainingSeates >= noOfPassenger)
+                {
+                    return train.TrainId;
+                }
+            }
+            return 0;
+
+        }
+
+
+
+
+
 
     }
 }
