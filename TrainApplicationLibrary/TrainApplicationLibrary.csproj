@@ -40,6 +40,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Classes\Reservation.cs" />
+    <Compile Include="Classes\Ticket.cs" />
+    <Compile Include="Classes\Train.cs" />
     <Compile Include="Interfaces\IReservation.cs" />
     <Compile Include="Interfaces\ITicket.cs" />
     <Compile Include="Interfaces\ITrain.cs" />
